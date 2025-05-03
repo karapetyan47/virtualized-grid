@@ -1,1 +1,3 @@
-export const Home = () => <div>Hello World</div>;
+import { Gallery } from '@/components/organisms/gallery';
+
+export const Home = () => <Gallery />;
