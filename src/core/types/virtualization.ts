@@ -12,4 +12,5 @@ export type T_Position = T_Dimension & {
 
 export interface I_GridItem extends T_Position {
   photo: I_Photo;
+  id: string;
 }

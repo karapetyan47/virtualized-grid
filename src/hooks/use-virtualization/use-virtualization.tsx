@@ -31,7 +31,7 @@ export const useVirtualization = ({
     const columnHeights: number[] = Array(columnCount).fill(0);
     const newItems: I_GridItem[] = [];
 
-    photos.forEach((photo) => {
+    photos.forEach((photo, index) => {
       const shortestColumn = columnHeights.indexOf(Math.min(...columnHeights));
       const aspectRatio = photo.height / photo.width || 1;
       const height = columnWidth * aspectRatio;
@@ -42,6 +42,8 @@ export const useVirtualization = ({
         left: shortestColumn * (columnWidth + C_Gap),
         width: columnWidth,
         height,
+        // INFO: id parameter of pexels photo is not unique
+        id: `${photo.id}-${index}`,
       });
 
       columnHeights[shortestColumn] += height + C_Gap;
@@ -73,11 +75,7 @@ export const useVirtualization = ({
       const itemTop = item.top;
       const itemBottom = item.top + item.height;
 
-      return (
-        (itemTop >= extraTop && itemTop <= extraBottom) ||
-        (itemBottom >= extraTop && itemBottom <= extraBottom) ||
-        (itemTop <= extraTop && itemBottom >= extraBottom)
-      );
+      return itemTop < extraBottom && itemBottom > extraTop;
     });
   }, [items, scrollTop, containerHeight, extraViewportArea]);
 

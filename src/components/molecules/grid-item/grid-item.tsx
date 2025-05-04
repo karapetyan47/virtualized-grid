@@ -22,7 +22,13 @@ export const GridItem = memo(({ photo, position, viewport }: I_Props) => {
   });
 
   return (
-    <GridPhotoContainer ref={targetRef} {...position}>
+    <GridPhotoContainer
+      ref={targetRef}
+      $top={position.top}
+      $left={position.left}
+      $width={position.width}
+      $height={position.height}
+    >
       <Show visible={isIntersecting} fallback={<FallbackGridPhoto $avgColor={photo.avg_color} />}>
         <GridPhoto src={photo.src.medium} alt={photo.alt} $visible={!!position?.width} />
       </Show>
