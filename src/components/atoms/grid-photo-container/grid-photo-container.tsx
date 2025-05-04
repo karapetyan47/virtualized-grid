@@ -1,16 +1,34 @@
 import styled from 'styled-components';
 
-export const StyledDiv = styled.div<{
+export const StyledDiv = styled.div.attrs<{
   $top: number;
   $left: number;
   $width: number;
   $height: number;
-}>`
+}>((props) => ({
+  style: {
+    top: props.$top,
+    left: props.$left,
+    width: props.$width,
+    height: props.$height,
+  },
+}))`
   position: absolute;
-  top: ${(props) => (props.$top ? props.$top + 'px' : 0)};
-  left: ${(props) => (props.$left ? props.$left + 'px' : 0)};
-  width: ${(props) => (props.$width ? props.$width + 'px' : '100%')};
-  height: ${(props) => (props.$height ? props.$height + 'px' : '100%')};
+  overflow: hidden;
   transition: opacity 0.3s ease;
   will-change: transform;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: ${({ theme }) => theme.radius.md};
+  transition: transform 0.2s ease-in-out;
+  outline: none;
+
+  &:hover,
+  &:focus-visible {
+    transform: scale(1.02);
+
+    .photo-info {
+      opacity: 1;
+    }
+  }
 `;

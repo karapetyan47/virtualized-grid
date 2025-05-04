@@ -13,6 +13,7 @@ export const theme = {
     skeletonMiddle: '#e0e0e0',
     shadow: 'rgba(0, 0, 0, 0.15)',
     imageFallback: '#f0f0f0',
+    danger: '#dc3545',
   },
   spacing: {
     containerPaddingMobile: '1rem',
