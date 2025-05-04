@@ -3,14 +3,6 @@ import { useState, useEffect, useCallback } from 'react';
 import { I_Photo } from '@/core/types/pexels';
 import { fetchCuratedPhotos } from '@/api/pexels';
 
-// interface UsePexelsAPIReturn {
-//   photos: I_Photo[];
-//   loading: boolean;
-//   error: Error | null;
-//   hasMore: boolean;
-//   loadMore: () => void;
-// }
-
 export const usePexelsAPI = () => {
   const [photos, setPhotos] = useState<I_Photo[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -18,7 +10,6 @@ export const usePexelsAPI = () => {
   const [page, setPage] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(true);
 
-  // Fetch photos on initial load
   useEffect(() => {
     const fetchInitialPhotos = async () => {
       setLoading(true);
