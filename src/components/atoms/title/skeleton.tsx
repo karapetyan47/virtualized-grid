@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledDiv = styled.div`
-  height: ${({ theme }) => theme.sizes.loadMoreTriggerHeight};
+  height: 2rem;
+  width: 70%;
+  margin-bottom: 1rem;
 `;

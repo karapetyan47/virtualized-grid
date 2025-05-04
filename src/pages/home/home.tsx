@@ -12,7 +12,7 @@ export const Home = () => {
   const { targetRef, isIntersecting } = useIntersectionObserver({ root: containerRef.current });
 
   useEffect(() => {
-    if (isIntersecting && photos.length && hasMore && !loading) {
+    if (isIntersecting && photos?.length && hasMore && !loading) {
       void loadMore();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

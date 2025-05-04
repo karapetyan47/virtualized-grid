@@ -1,4 +1,5 @@
 import { useState, useCallback, DOMAttributes, useEffect, ReactNode, RefObject } from 'react';
+import { useNavigate } from 'react-router';
 
 import { T_Dimension } from '@/core/types/virtualization';
 import { useVirtualization } from '@/hooks/use-virtualization';
@@ -15,16 +16,13 @@ interface I_Props {
 
 export const VirtualizedGrid = ({ photos, loadMoreTrigger, containerRef }: I_Props) => {
   const [scrollTop, setScrollTop] = useState(0);
-  const columnCount = useBreakpointColumns({ containerRef });
-
-  const handleScroll = useCallback<Required<DOMAttributes<HTMLDivElement>>['onScroll']>((e) => {
-    setScrollTop(e.currentTarget.scrollTop);
-  }, []);
-
   const [containerDimensions, setContainerDimensions] = useState<T_Dimension>({
     width: containerRef.current?.offsetWidth || 0,
     height: containerRef.current?.clientHeight || 0,
   });
+  const columnCount = useBreakpointColumns({ containerRef });
+  const navigate = useNavigate();
+
   useEffect(() => {
     const resizeObserver = new ResizeObserver((entries) => {
       const width = entries[0].contentRect.width;
@@ -48,12 +46,29 @@ export const VirtualizedGrid = ({ photos, loadMoreTrigger, containerRef }: I_Pro
     extraViewportArea: 0.5,
   });
 
+  const handleScroll = useCallback<Required<DOMAttributes<HTMLDivElement>>['onScroll']>((e) => {
+    setScrollTop(e.currentTarget.scrollTop);
+  }, []);
+
+  const handleNavigate = useCallback(
+    (id: number) => () => {
+      void navigate(String(id));
+    },
+    [navigate]
+  );
+
   return (
     <GridContainer ref={containerRef} onScroll={handleScroll}>
       <div style={{ height: totalHeight }}>
-        {visibleItems.map(({ photo, id, ...positions }) => {
-          return <GridItem viewport={containerRef} key={id} photo={photo} position={positions} />;
-        })}
+        {visibleItems.map(({ photo, id, ...positions }) => (
+          <GridItem
+            key={id}
+            viewport={containerRef}
+            photo={photo}
+            position={positions}
+            onClick={handleNavigate(photo.id)}
+          />
+        ))}
       </div>
       {loadMoreTrigger}
     </GridContainer>
