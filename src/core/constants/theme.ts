@@ -12,6 +12,7 @@ export const theme = {
     skeletonStart: '#f0f0f0',
     skeletonMiddle: '#e0e0e0',
     shadow: 'rgba(0, 0, 0, 0.15)',
+    imageFallback: '#f0f0f0',
   },
   spacing: {
     containerPaddingMobile: '1rem',
@@ -32,6 +33,7 @@ export const theme = {
     maxImageHeight: '70vh',
     likeSize: '2.5rem',
     colorStripHeight: '4px',
+    loadMoreTriggerHeight: '10px',
   },
   radius: {
     sm: '4px',
