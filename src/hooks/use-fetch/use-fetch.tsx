@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-type FetchStatus = 'idle' | 'loading' | 'success' | 'error';
+import { FetchStatus } from './types';
 
 interface I_Props<TData, TArgs> {
   fetcher: (args: TArgs) => Promise<TData>;
