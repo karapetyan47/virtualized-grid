@@ -1,12 +1,10 @@
-import '@/App.css';
+import '@/app.css';
 import { Router } from '@/router';
 
-const App = () => {
+export const App = () => {
   return (
     <>
       <Router />
     </>
   );
 };
-
-export default App;
