@@ -1,0 +1,45 @@
+export const theme = {
+  colors: {
+    background: '#f8f9fa',
+    textPrimary: '#333',
+    textSecondary: '#555',
+    textMuted: '#777',
+    link: '#0066cc',
+    linkHover: '#004d99',
+    liked: '#ff4d4d',
+    likeNeutral: 'rgba(255, 255, 255, 0.8)',
+    likeIcon: '#666',
+    skeletonStart: '#f0f0f0',
+    skeletonMiddle: '#e0e0e0',
+    shadow: 'rgba(0, 0, 0, 0.15)',
+  },
+  spacing: {
+    containerPaddingMobile: '1rem',
+    containerPaddingDesktop: '2rem',
+    gapLarge: '2rem',
+    gapMedium: '1.5rem',
+    gapSmall: '0.75rem',
+    gapTiny: '0.5rem',
+  },
+  typography: {
+    fontFamily: `'Inter', sans-serif`,
+    fontSizeLarge: '1.75rem',
+    fontSizeMedium: '1rem',
+    fontSizeSmall: '0.875rem',
+    fontSizeXs: '0.75rem',
+  },
+  sizes: {
+    maxImageHeight: '70vh',
+    likeSize: '2.5rem',
+    colorStripHeight: '4px',
+  },
+  radius: {
+    sm: '4px',
+    md: '0.5rem',
+    round: '50%',
+  },
+  animation: {
+    shimmerSize: '200px',
+    shimmerDuration: '1.5s',
+  },
+} as const;

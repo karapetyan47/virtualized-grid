@@ -12,9 +12,10 @@ interface I_Props {
   photo: I_Photo;
   position: T_Position;
   viewport: RefObject<HTMLElement | null>;
+  onClick: () => void;
 }
 
-export const GridItem = memo(({ photo, position, viewport }: I_Props) => {
+export const GridItem = memo(({ photo, position, viewport, onClick }: I_Props) => {
   const { targetRef, isIntersecting } = useIntersectionObserver({
     root: viewport.current,
     rootMargin: '200px',
@@ -28,6 +29,7 @@ export const GridItem = memo(({ photo, position, viewport }: I_Props) => {
       $left={position.left}
       $width={position.width}
       $height={position.height}
+      onClick={onClick}
     >
       <Show visible={isIntersecting} fallback={<FallbackGridPhoto $avgColor={photo.avg_color} />}>
         <GridPhoto src={photo.src.medium} alt={photo.alt} $visible={!!position?.width} />

@@ -7,6 +7,12 @@ const router = createBrowserRouter([
       Component: (await import('@/pages/home')).Home,
     }),
   },
+  {
+    path: '/:id',
+    lazy: async () => ({
+      Component: (await import('@/pages/photo')).Photo,
+    }),
+  },
 ]);
 
 export const Router = () => {
