@@ -39,7 +39,7 @@ export const useVirtualization = ({
       newItems.push({
         photo,
         top: columnHeights[shortestColumn],
-        left: shortestColumn * (columnWidth + C_Gap),
+        left: shortestColumn * (columnWidth + C_Gap) + 2 * C_Gap,
         width: columnWidth,
         height,
         // INFO: id parameter of pexels photo is not unique
