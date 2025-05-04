@@ -2,18 +2,18 @@ import { Component, ErrorInfo, ReactNode } from 'react';
 
 import { ErrorElement } from '@/components/molecules/error-element';
 
-interface Props {
+interface I_Props {
   children: ReactNode;
   fallback?: ReactNode;
 }
 
-interface State {
+interface I_State {
   hasError: boolean;
   error: Error | null;
 }
 
-export class ErrorBoundary extends Component<Props, State> {
-  constructor(props: Props) {
+export class ErrorBoundary extends Component<I_Props, I_State> {
+  constructor(props: I_Props) {
     super(props);
     this.state = {
       hasError: false,
@@ -21,7 +21,7 @@ export class ErrorBoundary extends Component<Props, State> {
     };
   }
 
-  static getDerivedStateFromError(error: Error): State {
+  static getDerivedStateFromError(error: Error): I_State {
     return {
       hasError: true,
       error,
