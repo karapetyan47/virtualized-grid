@@ -1,4 +1,4 @@
-# My Pexels App
+# Virtualized Grid
 
 A single-page application built with React and TypeScript that integrates with the Pexels API.
 
