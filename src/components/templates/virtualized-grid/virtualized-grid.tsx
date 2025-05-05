@@ -59,7 +59,7 @@ export const VirtualizedGrid = ({ photos, loadMoreTrigger, containerRef }: I_Pro
   );
 
   return (
-    <GridContainer ref={containerRef} onScroll={handleScroll}>
+    <GridContainer data-test="grid-container" ref={containerRef} onScroll={handleScroll}>
       <div style={{ height: totalHeight }}>
         {visibleItems.map(({ photo, id, ...positions }) => (
           <GridItem

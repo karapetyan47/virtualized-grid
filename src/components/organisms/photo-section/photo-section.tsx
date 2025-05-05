@@ -29,7 +29,7 @@ export const PhotoSection = ({
 }: I_Props) => {
   return (
     <PhotoWrapper>
-      <ImageContainer $height={height} $width={width}>
+      <ImageContainer data-test="image-container" $height={height} $width={width}>
         <ImageRelativeContainer>
           <ProgressiveImage
             src={src}

@@ -26,6 +26,9 @@ export const GridItem = memo(({ photo, position, viewport, optimalSrc, onClick }
 
   return (
     <GridPhotoContainer
+      data-test="grid-item"
+      data-top={position.top}
+      data-left={position.left}
       ref={targetRef}
       $top={position.top}
       $left={position.left}
