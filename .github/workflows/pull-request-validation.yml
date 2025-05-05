@@ -1,0 +1,45 @@
+name: PR Validation
+
+on:
+  pull_request:
+    branches: [ master ]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  validate:
+    name: Run Tests & Typecheck
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'yarn'
+    
+    - name: Get yarn cache directory
+      id: yarn-cache
+      run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+    
+    - uses: actions/cache@v3
+      id: yarn-deps-cache
+      with:
+        path: |
+          ${{ steps.yarn-cache.outputs.dir }}
+          node_modules
+        key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
+    
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
+      if: steps.yarn-deps-cache.outputs.cache-hit != 'true'
+    
+    - name: Run tests
+      run: yarn test
+    
+    - name: Run typecheck
+      run: yarn typecheck
