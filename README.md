@@ -1,54 +1,97 @@
-# React + TypeScript + Vite
+# My Pexels App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A single-page application built with React and TypeScript that integrates with the Pexels API.
 
-Currently, two official plugins are available:
+## 📋 Prerequisites
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Node.js version 18 or higher
+- Yarn package manager
+- Pexels API key (you can get one by signing up at [Pexels](https://www.pexels.com/api/))
 
-## Expanding the ESLint configuration
+## 🚀 Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Installation
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/karapetyan47/virtualized-grid.git
+   cd virtualized-grid
+   ```
+
+2. Install dependencies:
+   ```bash
+   yarn
+   ```
+
+3. Create a `.env` file in the root directory and add your Pexels API key:
+   ```
+   VITE_APP_PEXELS_API_KEY=<Your_Pexels_API_Key>
+   ```
+
+### Development
+
+Start the development server:
+```bash
+yarn dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The application will be available at `http://localhost:5173` (or another port if 5173 is already in use).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Production Build
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+Build the application for production:
+```bash
+yarn build
 ```
+
+Preview the production build:
+```bash
+yarn preview
+```
+
+## 🧪 Testing
+
+Run tests to ensure everything is working correctly:
+```bash
+yarn test
+```
+
+## 🔍 Type Checking
+
+Verify TypeScript types:
+```bash
+yarn typecheck
+```
+
+## 🛠️ Technology Stack
+
+- **Framework**: React
+- **Language**: TypeScript
+- **Styling**: styled-components
+- **Testing**: Jest, @testing-library/react
+- **Code Quality**: ESLint, Prettier
+- **Build Tool**: Vite
+
+## 📝 Code Quality
+
+The project maintains high code quality through:
+
+- ESLint and Prettier for code formatting and linting
+- Pre-commit hooks that run linting automatically
+- GitHub Actions that check tests and types on Pull Requests to the master branch
+
+## 🏗️ Architecture
+
+This project is built using the **Atomic Design Methodology**, which organizes components into five distinct levels:
+
+1. **Atoms**: Basic building blocks like buttons, inputs, and labels
+2. **Molecules**: Simple groups of UI elements functioning together (form fields, search bars)
+3. **Organisms**: Complex UI components composed of molecules and atoms
+4. **Templates**: Page-level layouts that arrange organisms
+5. **Pages**: Specific instances of templates with real content
+
+This architecture promotes reusability, maintainability, and a consistent design system throughout the application.
+
+## 📄 License
+
+[MIT](LICENSE)
