@@ -1,3 +1,5 @@
+import { useCallback } from 'react';
+
 import { Photo } from '@/components/atoms/photo';
 import { FallbackGridPhoto } from '@/components/atoms/fallback-grid-photo';
 import { useLoadImage } from '@/hooks/use-load-image';
@@ -24,6 +26,12 @@ export const ProgressiveImage = ({
   sizes = '100vw',
 }: I_Props) => {
   const { loadedSrc, isLoaded, error } = useLoadImage({ src, placeholderSrc });
+
+  const handleOnLoad = useCallback(() => {
+    if (window.performance && performance.mark) {
+      performance.mark(`img-loaded-${loadedSrc?.split('/').pop()}`);
+    }
+  }, [loadedSrc]);
 
   if (error) {
     return <FallbackGridPhoto data-test="fallback" $avgColor={avgColor} />;
@@ -54,11 +62,7 @@ export const ProgressiveImage = ({
         sizes={sizes}
         width={width}
         height={height}
-        onLoad={() => {
-          if (window.performance && performance.mark) {
-            performance.mark(`img-loaded-${loadedSrc?.split('/').pop()}`);
-          }
-        }}
+        onLoad={handleOnLoad}
       />
     </>
   );
