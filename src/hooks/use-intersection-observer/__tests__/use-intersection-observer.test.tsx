@@ -75,7 +75,7 @@ describe('useIntersectionObserver', () => {
 
     const mockEntry = {
       isIntersecting: true,
-      target: document.createElement('div'),
+      target: result.current.targetRef.current!,
       time: Date.now(),
       boundingClientRect: {} as DOMRectReadOnly,
       intersectionRatio: 1,
