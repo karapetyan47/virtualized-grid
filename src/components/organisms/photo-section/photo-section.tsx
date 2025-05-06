@@ -36,6 +36,9 @@ export const PhotoSection = ({
             placeholderSrc={placeholderSrc}
             alt={alt || `Photo by ${photographer}`}
             avgColor={color}
+            width={width}
+            height={height}
+            // priority
           />
         </ImageRelativeContainer>
         <ColorStrip color={color} />

@@ -43,6 +43,8 @@ export const GridItem = memo(({ photo, position, viewport, optimalSrc, onClick }
             placeholderSrc={photo.src.tiny}
             alt={photo.alt}
             avgColor={photo.avg_color}
+            width={photo.width}
+            height={photo.height}
           />
           <GridPhotoInfo className="photo-info">
             <span>{photo.photographer}</span>

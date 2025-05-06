@@ -28,9 +28,13 @@ export const useIntersectionObserver = ({
     }
 
     observerRef.current = new IntersectionObserver(
-      ([entry]) => {
-        setIsIntersecting(entry.isIntersecting);
-        setEntry(entry);
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.target === targetRef.current) {
+            setIsIntersecting(entry.isIntersecting);
+            setEntry(entry);
+          }
+        }
       },
       {
         threshold,
