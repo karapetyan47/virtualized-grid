@@ -41,7 +41,7 @@ export const PhotoSection = ({
             // priority
           />
         </ImageRelativeContainer>
-        <ColorStrip color={color} />
+        <ColorStrip $color={color} />
         <Show visible={liked}>
           <LikeIndicator liked={liked}>❤️</LikeIndicator>
         </Show>
