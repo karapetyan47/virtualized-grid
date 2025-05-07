@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
+import { NavigateOptions, useNavigate } from 'react-router';
 
 import { VirtualizedGrid } from '@/components/templates/virtualized-grid';
 import { useIntersectionObserver } from '@/hooks/use-intersection-observer';
@@ -16,6 +17,7 @@ export const Gallery = () => {
   const [query, handleSearch] = useSearch({});
   const { photos, loadMore, hasMore, loading, error, search } = usePexelsAPI(query);
   const containerRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const { targetRef, isIntersecting } = useIntersectionObserver({
     root: containerRef.current,
@@ -24,7 +26,6 @@ export const Gallery = () => {
 
   useEffect(() => {
     if (isIntersecting && photos?.length && hasMore && !loading) {
-      console.log('Load more');
       void loadMore();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -33,6 +34,18 @@ export const Gallery = () => {
   const onSearch = useCallback(
     (query: string) => handleSearch(query, search),
     [handleSearch, search]
+  );
+
+  const handleNavigate = useCallback(
+    (id: number) => () => {
+      const options: NavigateOptions = {};
+      if (query) {
+        options.state = query;
+      }
+
+      void navigate(String(id), options);
+    },
+    [navigate, query]
   );
 
   return (
@@ -48,6 +61,7 @@ export const Gallery = () => {
               <VirtualizedGrid
                 containerRef={containerRef}
                 photos={photos}
+                onNavigate={handleNavigate}
                 loadMoreTrigger={<LoadMoreTrigger ref={targetRef} />}
               />
             </Show>

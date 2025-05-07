@@ -27,8 +27,11 @@ jest.mock('@/hooks/use-breackpoint-columns', () => ({
 }));
 
 const VirtualizedGridWrapper = ({ photos = C_MockPhotos }) => {
+  const onNavigate = (id: number) => {
+    return () => global.mockNavigate(id);
+  };
   const containerRef = useRef(null);
-  return <VirtualizedGrid photos={photos} containerRef={containerRef} />;
+  return <VirtualizedGrid onNavigate={onNavigate} photos={photos} containerRef={containerRef} />;
 };
 
 describe('VirtualizedGrid', () => {
@@ -45,7 +48,7 @@ describe('VirtualizedGrid', () => {
     const firstGridItem = document.querySelector('div[data-test=grid-item]');
     fireEvent.click(firstGridItem!);
 
-    expect(global.mockNavigate).toHaveBeenCalledWith(String(C_MockPhotos[0].id));
+    expect(global.mockNavigate).toHaveBeenCalledWith(C_MockPhotos[0].id);
   });
 
   it('should update on scroll', () => {
