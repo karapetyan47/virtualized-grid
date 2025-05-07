@@ -92,6 +92,12 @@ This project is built using the **Atomic Design Methodology**, which organizes c
 
 This architecture promotes reusability, maintainability, and a consistent design system throughout the application.
 
+## 📈 Performance
+
+Learn how the app ensures responsiveness and efficiency even with large image datasets:
+
+📄 [Performance Optimization Guide](docs/performance.md)
+
 ## 📄 License
 
 [MIT](LICENSE)
