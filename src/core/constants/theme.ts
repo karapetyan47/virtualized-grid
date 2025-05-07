@@ -14,6 +14,19 @@ export const theme = {
     shadow: 'rgba(0, 0, 0, 0.15)',
     imageFallback: '#f0f0f0',
     danger: '#dc3545',
+    focusedBorderColor: '#666',
+    borderColor: '#ddd',
+    gray: {
+      100: '#f8f9fa',
+      200: '#e9ecef',
+      300: '#dee2e6',
+      400: '#ced4da',
+      500: '#adb5bd',
+      600: '#6c757d',
+      700: '#495057',
+      800: '#343a40',
+      900: '#212529',
+    },
   },
   spacing: {
     containerPaddingMobile: '1rem',
@@ -35,6 +48,7 @@ export const theme = {
     likeSize: '2.5rem',
     colorStripHeight: '4px',
     loadMoreTriggerHeight: '10px',
+    searchBarHeight: '5rem',
   },
   radius: {
     sm: '4px',

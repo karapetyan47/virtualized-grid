@@ -29,25 +29,28 @@ describe('useIntersectionObserver', () => {
   });
 
   it('should create an intersection observer with default options', () => {
-    renderHook(() => useIntersectionObserver({}));
+    const { result } = renderHook(() => useIntersectionObserver({}));
+    result.current.targetRef(document.createElement('div'));
 
     expect(global.IntersectionObserver).toHaveBeenCalledWith(expect.any(Function), {
-      threshold: 0.1,
+      threshold: 0,
       root: null,
-      rootMargin: '0px',
+      rootMargin: '300px',
     });
   });
 
   it('should create an intersection observer with custom options', () => {
     const root = document.createElement('div');
 
-    renderHook(() =>
+    const { result } = renderHook(() =>
       useIntersectionObserver({
         threshold: 0.5,
         root,
         rootMargin: '10px',
       })
     );
+
+    result.current.targetRef(document.createElement('div'));
 
     expect(global.IntersectionObserver).toHaveBeenCalledWith(expect.any(Function), {
       threshold: 0.5,
@@ -61,7 +64,7 @@ describe('useIntersectionObserver', () => {
 
     const mockElement = document.createElement('div');
     act(() => {
-      result.current.targetRef.current = mockElement;
+      result.current.targetRef(mockElement);
     });
 
     const observeCalls = (global.IntersectionObserver as jest.Mock).mock.instances.length;
@@ -73,9 +76,12 @@ describe('useIntersectionObserver', () => {
 
     expect(result.current.isIntersecting).toBe(false);
 
+    const target = document.createElement('div');
+    result.current.targetRef(target);
+
     const mockEntry = {
       isIntersecting: true,
-      target: result.current.targetRef.current!,
+      target: target,
       time: Date.now(),
       boundingClientRect: {} as DOMRectReadOnly,
       intersectionRatio: 1,
