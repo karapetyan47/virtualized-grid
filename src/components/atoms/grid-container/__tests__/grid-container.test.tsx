@@ -12,11 +12,12 @@ describe('GridContainer', () => {
     const gridContainer = screen.getByTestId('grid-container');
 
     expect(gridContainer).toHaveStyle({
-      height: '100vh',
+      height: `calc(100vh - 20px - 5rem)`,
       overflowY: 'auto',
       overflowX: 'hidden',
       position: 'relative',
       padding: `0 ${C_Gap}px`,
+      margin: '10px 0',
     });
   });
 });

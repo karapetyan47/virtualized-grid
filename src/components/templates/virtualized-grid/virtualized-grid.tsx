@@ -8,6 +8,7 @@ import { GridContainer } from '@/components/atoms/grid-container';
 import { I_Photo } from '@/core/types/pexels';
 import { getOptimalImageSize } from '@/utils/get-optimal-image-size';
 import { GridItem } from '@/components/organisms/grid-item';
+import { Show } from '@/components/atoms/show';
 
 interface I_Props {
   photos: I_Photo[];
@@ -36,7 +37,8 @@ export const VirtualizedGrid = ({ photos, loadMoreTrigger, containerRef }: I_Pro
 
     if (containerRef.current) resizeObserver.observe(containerRef.current);
     return () => resizeObserver.disconnect();
-  }, [containerDimensions, containerRef]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [containerRef]);
 
   const { visibleItems, totalHeight } = useVirtualization({
     photos,
@@ -58,6 +60,8 @@ export const VirtualizedGrid = ({ photos, loadMoreTrigger, containerRef }: I_Pro
     [navigate]
   );
 
+  console.log(visibleItems, 'visibleItems');
+
   return (
     <GridContainer data-test="grid-container" ref={containerRef} onScroll={handleScroll}>
       <div style={{ height: totalHeight }}>
@@ -72,7 +76,7 @@ export const VirtualizedGrid = ({ photos, loadMoreTrigger, containerRef }: I_Pro
           />
         ))}
       </div>
-      {loadMoreTrigger}
+      <Show visible={!!visibleItems.length}>{loadMoreTrigger}</Show>
     </GridContainer>
   );
 };

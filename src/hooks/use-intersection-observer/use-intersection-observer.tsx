@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface I_Props {
   threshold?: number;
@@ -8,53 +8,56 @@ interface I_Props {
 }
 
 export const useIntersectionObserver = ({
-  threshold = 0.1,
+  threshold = 0,
   root = null,
-  rootMargin = '0px',
+  rootMargin = '300px',
   enabled = true,
 }: I_Props) => {
   const [isIntersecting, setIsIntersecting] = useState(false);
   const [entry, setEntry] = useState<IntersectionObserverEntry | null>(null);
-  const targetRef = useRef<HTMLDivElement | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const nodeRef = useRef<Element | null>(null);
+
+  const callbackRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+        observerRef.current = null;
+      }
+
+      nodeRef.current = node;
+
+      if (node && enabled && typeof IntersectionObserver !== 'undefined') {
+        observerRef.current = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.target === node) {
+                setIsIntersecting(entry.isIntersecting);
+                setEntry(entry);
+              }
+            }
+          },
+          {
+            root,
+            rootMargin,
+            threshold,
+          }
+        );
+
+        observerRef.current.observe(node);
+      }
+    },
+    [enabled, root, rootMargin, threshold]
+  );
 
   useEffect(() => {
-    if (!enabled || !window.IntersectionObserver) {
-      return;
-    }
-
-    if (observerRef.current) {
-      observerRef.current.disconnect();
-    }
-
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.target === targetRef.current) {
-            setIsIntersecting(entry.isIntersecting);
-            setEntry(entry);
-          }
-        }
-      },
-      {
-        threshold,
-        root,
-        rootMargin,
-      }
-    );
-
-    const currentTarget = targetRef.current;
-    if (currentTarget) {
-      observerRef.current.observe(currentTarget);
-    }
-
     return () => {
-      if (observerRef.current && currentTarget) {
-        observerRef.current.unobserve(currentTarget);
+      if (observerRef.current) {
         observerRef.current.disconnect();
+        observerRef.current = null;
       }
     };
-  }, [enabled, root, rootMargin, threshold]);
+  }, []);
 
-  return { targetRef, isIntersecting, entry };
+  return { targetRef: callbackRef, isIntersecting, entry };
 };

@@ -5,7 +5,7 @@ import { C_RecalculationDelay } from './constants';
 
 import { I_Photo } from '@/core/types/pexels';
 import { I_GridItem } from '@/core/types/virtualization';
-import { C_Gap } from '@/core/constants/grid';
+import { calculateGridLayout } from '@/utils/calculate-grid-layout';
 
 interface I_Props {
   photos: I_Photo[];
@@ -27,29 +27,7 @@ export const useVirtualization = ({
   const [items, setItems] = useState<I_GridItem[]>([]);
 
   const calculateLayout = useCallback(() => {
-    const columnWidth = (containerWidth - (columnCount + 1) * C_Gap) / columnCount;
-    const columnHeights: number[] = Array(columnCount).fill(0);
-    const newItems: I_GridItem[] = [];
-
-    photos.forEach((photo, index) => {
-      const shortestColumn = columnHeights.indexOf(Math.min(...columnHeights));
-      const aspectRatio = photo.height / photo.width || 1;
-      const height = columnWidth * aspectRatio;
-
-      newItems.push({
-        photo,
-        top: columnHeights[shortestColumn],
-        left: shortestColumn * (columnWidth + C_Gap) + 2 * C_Gap,
-        width: columnWidth,
-        height,
-        // INFO: id parameter of pexels photo is not unique
-        id: `${photo.id}-${index}`,
-      });
-
-      columnHeights[shortestColumn] += height + C_Gap;
-    });
-
-    setItems(newItems);
+    setItems(calculateGridLayout(photos, columnCount, containerWidth));
   }, [columnCount, containerWidth, photos]);
 
   const debouncedCalculateLayout = useMemo(
