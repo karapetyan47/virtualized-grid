@@ -43,7 +43,7 @@ export const PhotoSection = ({
         </ImageRelativeContainer>
         <ColorStrip $color={color} />
         <Show visible={liked}>
-          <LikeIndicator liked={liked}>❤️</LikeIndicator>
+          <LikeIndicator $liked={liked}>❤️</LikeIndicator>
         </Show>
       </ImageContainer>
     </PhotoWrapper>

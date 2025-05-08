@@ -9,8 +9,8 @@ describe('LikeIndicator', () => {
   it('should be rendered with correct styles', () => {
     renderWithProviders(
       <>
-        <LikeIndicator liked={false} data-testid="liked-indicator" />
-        <LikeIndicator liked={true} data-testid="like-indicator" />
+        <LikeIndicator $liked={false} data-testid="liked-indicator" />
+        <LikeIndicator $liked={true} data-testid="like-indicator" />
       </>
     );
 
